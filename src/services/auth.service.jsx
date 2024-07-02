@@ -2,6 +2,7 @@ import store from "../app/redux/store";
 import instance from "../config/axios.config"
 import  {jwtDecode}  from "jwt-decode";
 import {Login,Logout,Refresh} from "../app/redux/auth.slice"
+import { useSelector } from "react-redux";
 
 const authservice = {
 Login : async({email,password}) => {
@@ -33,7 +34,13 @@ Refresh : async() => {
         store.dispatch(Refresh({token:'',isAuth:false,user:null}))
         return error.response.data
     }
-}, 
+},
+isAuthenticate : () => {
+const isAuth = useSelector((state) => state.auth.isAuth)
+const isUser = useSelector((state) => state.auth.user)
+const isToken = useSelector((state) => state.auth.token)
+return {isAuth,isToken,isUser}
+} 
 }
 
 

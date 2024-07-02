@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import authservice from "../services/auth.service";
 const AuthRoute = () => {
-    const isAuth = useSelector((state) => state.auth.isAuth);
-    console.log(isAuth); 
+    const {isAuth} = authservice.isAuthenticate()
     return isAuth ?  <Outlet /> : <Navigate to="/login" /> ;
 };
 
