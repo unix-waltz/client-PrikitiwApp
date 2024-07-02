@@ -1,8 +1,14 @@
+import store from "../app/redux/store";
 import instance from "../config/axios.config"
+import  {jwtDecode}  from "jwt-decode";
+import {Login,Logout,Refresh} from "../app/redux/auth.slice"
+
 const authservice = {
 Login : async({email,password}) => {
     try {
         const send = await instance.post('/auth/login',{email:email,password:password})
+        const user = jwtDecode(send.data?._token)
+        store.dispatch(Login({token:send.data?._token,user:user}))
         return send.data
     } catch (error) {
         return error.response.data
@@ -17,7 +23,17 @@ Register : async({email,password,username}) => {
         return error.response.data
     }
 },
-Refresh : () => {}, 
+Refresh : async() => {
+    try {
+        const send = await instance.post('/auth/refresh')
+        const user = jwtDecode(send.data?._token)
+        store.dispatch(Refresh({token:send.data?._token,isAuth:send.data?._token ? true : false,user:user}))
+        return send.data
+    } catch (error) {
+        store.dispatch(Refresh({token:'',isAuth:false,user:null}))
+        return error.response.data
+    }
+}, 
 }
 
 
