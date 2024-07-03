@@ -9,7 +9,7 @@ const Login = () => {
   const _Submit = async (values) =>{
     const {email,password} = values
     const result = await authservice.Login({email,password})
-    if(result.status == 'success')return redirect('/home')
+    if(result.status == 'success')return redirect('/dashboard/me')
       seterrmessage(result.message)
     }
       const {handleSubmit,handleChange,values,errors} = useFormik({

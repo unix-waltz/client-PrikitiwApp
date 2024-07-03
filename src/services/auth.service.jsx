@@ -15,7 +15,14 @@ Login : async({email,password}) => {
         return error.response.data
     }
 },
-Logout : () => {},
+Logout : async() => {
+    try {
+await instance.delete('/auth/logout')
+store.dispatch(Logout())
+    } catch (error) {
+        return error.response.data
+    }
+},
 Register : async({email,password,username}) => {
     try {
        const send = await instance.post('/auth/register',{email:email,password:password,username:username})

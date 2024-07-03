@@ -7,7 +7,7 @@ const Navbar = () => {
     <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div className="flex h-16 items-center justify-between">
         <div className="md:flex md:items-center md:gap-12">
-          <Link className="block text-teal-600" href="#">
+          <Link className="block text-teal-600" href="/">
             <span className="sr-only">Home</span>
            <span className="font-semibold text-xl"> PrikitiwApp</span>
           </Link>
@@ -48,7 +48,7 @@ const Navbar = () => {
             <div className="sm:flex sm:gap-4">
             <Link
               className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-              href="#"
+              to="/login"
             >
               Login
             </Link>
@@ -56,12 +56,21 @@ const Navbar = () => {
             <div className="hidden sm:flex">
               <Link
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                href="#"
+                to="/register"
               >
                 Register
               </Link>
             </div>
           </div>
+          )}
+          {isAuth && (
+             <div className="sm:flex sm:gap-4">
+             <span
+               className=" px-5 py-2.5 text-sm font-medium text-teal-600 "
+             >
+        {isUser.email}
+             </span>
+           </div>
           )}
           <div className="block md:hidden">
             <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
