@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
 import authservice from "../../services/auth.service"
-const Sidebar = () => {
+const Sidebar =  () => {
     const {isUser} = authservice.isAuthenticate()
     const HandleLogout = async () => {
         let isConfirm = confirm('Logout?')
-if(isConfirm) await authservice.Logout()
+if(isConfirm){
+ await authservice.Logout()
+  }
     }
   return (
     <div className="flex h-screen flex-col justify-between border-e bg-white w-1/6">
@@ -93,15 +95,12 @@ if(isConfirm) await authservice.Logout()
                 </Link>
               </li>
               <li>
-                <form >
                   <button 
                   onClick={HandleLogout}
-                    type="submit"
                     className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                   >
                     Logout
                   </button>
-                </form>
               </li>
             </ul>
           </details>

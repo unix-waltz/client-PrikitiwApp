@@ -20,7 +20,7 @@ Logout : async() => {
 await instance.delete('/auth/logout')
 store.dispatch(Logout())
     } catch (error) {
-        return error.response.data
+        return error.response?.data
     }
 },
 Register : async({email,password,username}) => {
