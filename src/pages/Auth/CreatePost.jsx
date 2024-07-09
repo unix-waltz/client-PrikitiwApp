@@ -1,11 +1,16 @@
 import AuthLayout from "../../components/Partials/AuthLayout"
 import authservice from "../../services/auth.service"
+import { useNavigate } from "react-router-dom"
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import "trix"
 import { useFormik } from "formik"
+import { create } from "../../services/post.service"
 import { mixed, object, string } from "yup"
 import { useRef, useEffect } from "react"
 
 const CreatePost = () => {
+  const navigate = useNavigate()
+  const Api = useAxiosPrivate()
   const { isUser } = authservice.isAuthenticate()
   const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   const trixEditorRef = useRef(null)
@@ -30,8 +35,9 @@ const CreatePost = () => {
       category: string().required("category Is required"),
       title: string().required("title Is required").max(500, "title is over"),
     }),
-    onSubmit: async (values) => {
-      console.log(values)
+    onSubmit:async (values) => {
+      const result = await create({values,Api})
+   if(result.status == 'success'|| result.code == 200) return navigate('/dashboard/me/my-posts')
     }
   })
 
