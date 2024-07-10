@@ -34,7 +34,7 @@ validateOnChange:false
     <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
       <img
         alt=""
-        src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+        src="https://images.unsplash.com/photo-1667842474031-8a0ba604df48?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         className="absolute inset-0 h-full w-full object-cover"
       />
     </aside>
@@ -134,7 +134,7 @@ validateOnChange:false
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
             <button
             type='submit'
-              className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+              className="inline-block shrink-0 rounded-md border border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-teal-500"
             >
               Create an account
             </button>

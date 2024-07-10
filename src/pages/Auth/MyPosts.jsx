@@ -1,6 +1,22 @@
 import AuthLayout from "../../components/Partials/AuthLayout"
 import { Link } from "react-router-dom"
+import { getAllposts } from "../../services/post.service"
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import { useEffect } from "react"
+import { useState } from "react"
+import authservice from "../../services/auth.service"
+import Card from "./../../components/Card"
 const MyPosts = () => {
+  const [posts,setPosts] = useState([])
+  const {isUser} = authservice.isAuthenticate()
+  const Api = useAxiosPrivate()
+  const HintAPI = async ()=>{
+    const result = await getAllposts({Api,authorId:isUser.id})
+    setPosts(result)
+    }
+  useEffect(()=>{
+    HintAPI()
+  },[])
   return (
     <AuthLayout>
 
@@ -15,13 +31,17 @@ const MyPosts = () => {
 </Link>
 <br /><br />
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-<div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>  <div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>  <div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>
-  <div className="h-32 rounded-lg bg-gray-200"></div>
+{posts && posts.map(post => (
+  <Card
+    key={post.id} 
+    date={post.created_at}  
+    title={post.title}
+    body={post.body}
+    thumbnail={post.thumbnail}
+    category={post.category}
+  />
+))}
+
 </div>
 
     </AuthLayout>
