@@ -1,4 +1,3 @@
-import AuthLayout from "../../components/Partials/AuthLayout"
 import authservice from "../../services/auth.service"
 import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -8,7 +7,7 @@ import { create } from "../../services/post.service"
 import { mixed, object, string } from "yup"
 import { useRef, useEffect } from "react"
 
-const CreatePost = () => {
+const FormEdit = () => {
   const navigate = useNavigate()
   const Api = useAxiosPrivate()
   const { isUser } = authservice.isAuthenticate()
@@ -56,10 +55,11 @@ const CreatePost = () => {
 
   return (
     <>
-      <AuthLayout>
+      <secttion>
         <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css" />
-        <span className="font-semibold text-xl text-teal-600">Post Forms</span>
+        <br/>
+        <span className="font-semibold text-xl text-teal-600">Setting Forms</span>
         <br />
         <br />
         <section>
@@ -119,7 +119,7 @@ const CreatePost = () => {
                   <div className="mt-4">
                     <button
                       type="submit"
-                      className="inline-block w-full rounded-lg bg-teal-500  px-5 py-3 font-medium text-white sm:w-auto"
+                      className="inline-block w-full rounded-lg bg-teal-500 l px-5 py-3 font-medium text-white sm:w-auto"
                     >
                       Create Post
                     </button>
@@ -129,9 +129,9 @@ const CreatePost = () => {
             </div>
           </div>
         </section>
-      </AuthLayout>
+      </secttion>
     </>
   )
 }
 
-export default CreatePost
+export default FormEdit

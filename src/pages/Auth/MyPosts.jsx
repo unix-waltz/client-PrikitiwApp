@@ -34,6 +34,7 @@ const MyPosts = () => {
 {posts && posts.map(post => (
   <Card
     key={post.id} 
+    id={post.id}
     date={post.created_at}  
     title={post.title}
     body={post.body}

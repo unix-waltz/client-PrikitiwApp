@@ -10,6 +10,7 @@ import GuestRoute from "./routes/GuestRoute";
 import AuthRoute from "./routes/AuthRoute";
 import MyPosts from "./pages/Auth/MyPosts";
 import CreatePost from "./pages/Auth/CreatePost";
+import DetailPost from "./pages/Auth/DetailPost";
 const App = () => {
   return (
   <Provider store={store}>
@@ -18,6 +19,10 @@ const App = () => {
   <Route element={<PrivateRoute/>}>
 {/* Auth */}
     <Route element={<AuthRoute/>}>
+          {/* <Route  path="/dashboard/me/my-posts/:id" />
+          <Route  path="/dashboard/me/my-posts/:id" /> */}
+          <Route  path="/dashboard/category/:category" />
+          <Route  path="/dashboard/me/my-posts/:id" element={<DetailPost/>} />
           <Route path="/dashboard/me" element={<Dashboard/>}/>
           <Route path="/dashboard/me/my-posts" element={<MyPosts/>}/>
           <Route path="/dashboard/me/new-post" element={<CreatePost/>}/>
