@@ -1,17 +1,30 @@
 import AuthLayout from "../../components/Partials/AuthLayout"
 import { VscPreview  } from "react-icons/vsc";
-import { useState } from "react";
+import { useState,useEffect  } from "react";
+import {getSinglepost} from "../../services/post.service";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import FormEdit from "./FormEdit";
+import { useParams } from "react-router-dom";
 import PreviewPost from "./PreviewPost";
 const DetailPost = () => {
+    const { id } = useParams();
+    const Api = useAxiosPrivate()
     const [activeTab, setActiveTab] = useState('show');
-    
+    const [post,setPost] = useState([]);
+    const HintAPI = async() => {
+const result = await getSinglepost({Api,id})
+setPost(result)
+// console.log(result)
+    }
+    useEffect(()=>{
+HintAPI()
+    },[id])
     const renderTab = () => {
         switch (activeTab) {
             case 'setting':
-                return <FormEdit/>
+                return <FormEdit {...{data:post}}/>
             case 'show':
-                return <PreviewPost {...{title:"Ayu Aulia Lapor Polisi, Merasa Difitnah karena Telat Balikin Baju Stylist ",category:"music",date:"12 january 2024",author:"Ujamg Smith"}}/>;
+                return <PreviewPost {...{title:post.title,category:post.category,date:post.created_at,thumbnail:post.thumbnail,id:post.id,body:post.body,author:post.author}}/>;
             default:
                 return null;
         }

@@ -1,12 +1,19 @@
-import React from 'react'
+const daysOfWeek = [
+  'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+];
 
 const dateTo = {
-    toDateFormat : (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID',{   day: 'numeric',
-        month: 'long',
-        year: 'numeric'}); 
-      },
-}
-export const {toDateFormat} = dateTo
-export default dateTo
+  toDateFormat: (dateString) => {
+    const date = new Date(dateString);
+    const dayName = daysOfWeek[date.getDay()];
+    const formattedDate = date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    return `${dayName}, ${formattedDate}`;
+  }
+};
+
+export const { toDateFormat } = dateTo;
+export default dateTo;

@@ -21,7 +21,7 @@ const Index = () => {
           className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
           type="button"
         >
-          <Link to='/dashboard/me' className="text-sm font-medium"> View Dashboard </Link>
+          <Link to='/dashboard/me/my-posts' className="text-sm font-medium"> View Dashboard </Link>
 
           <svg
             xmlns="http://www.w3.org/2000/svg"

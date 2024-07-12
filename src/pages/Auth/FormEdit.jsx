@@ -3,40 +3,41 @@ import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import "trix"
 import { useFormik } from "formik"
-import { create } from "../../services/post.service"
+import { updatePost } from "../../services/post.service"
 import { mixed, object, string } from "yup"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 
-const FormEdit = () => {
+const FormEdit = ({data}) => {
+  // console.log(data)
   const navigate = useNavigate()
+  const [open,setOpen] = useState(false)
   const Api = useAxiosPrivate()
   const { isUser } = authservice.isAuthenticate()
-  const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   const trixEditorRef = useRef(null)
 
   const { handleChange, handleSubmit, setFieldValue, errors, values } = useFormik({
     initialValues: {
       authorId: isUser.id,
-      thumbnail: "",
-      body: "",
-      category: "",
-      title: ""
+      postId: data.id,
+      thumbnail: data.thumbnail,
+      body: data.body,
+      category:data.category,
+      title: data.title
     },
     validateOnChange: false,
     validationSchema: object({
-      thumbnail: mixed().required('A Thumbnail is required')
-        .test(
-          'fileFormat',
-          'Unsupported Format',
-          value => value && SUPPORTED_FORMATS.includes(value.type)
-        ),
-      body: string().required("Body Is required").max(5000, "max 5000"),
-      category: string().required("category Is required"),
-      title: string().required("title Is required").max(500, "title is over"),
+      body: string().max(5000, "max 5000"),
+      category: string(),
+      title: string().max(500, "title is over"),
+      thumbnail: mixed()
+        .nullable()
     }),
+    
     onSubmit:async (values) => {
-      const result = await create({values,Api})
-   if(result.status == 'success'|| result.code == 200) return navigate('/dashboard/me/my-posts')
+      // alert(values.thumbnail)
+      const result = await updatePost({values,Api})
+      console.log(result)
+   if(result.status == 'success'|| result.code == 200) return window.location.reload()
     }
   })
 
@@ -55,14 +56,77 @@ const FormEdit = () => {
 
   return (
     <>
-      <secttion>
+      <div>
         <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css" />
         <br/>
         <span className="font-semibold text-xl text-teal-600">Setting Forms</span>
         <br />
         <br />
-        <section>
+        <div className="relative">
+  <div className="inline-flex items-center overflow-hidden rounded-md border bg-white">
+    <a
+      href="#"
+      className="border-e px-4 py-2 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700"
+    >
+      Edit
+    </a>
+
+    <button
+    onClick={()=>setOpen(!open)}
+    className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+      <span className="sr-only">Menu</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-4"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+{open && (
+  <div
+    className="z-50 absolute  mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg"
+    role="menu"
+  >
+    <div className="p-2">
+      
+      <div>
+        <button
+          
+          className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+          role="menuitem"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
+          </svg>
+
+          Delete This Post
+        </button>
+      </div>
+    </div>
+  </div>
+  )}
+</div>
+
+        <div>
           <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6">
             <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
               <div className="bg-white lg:col-span-3 lg:p-12">
@@ -128,8 +192,8 @@ const FormEdit = () => {
               </div>
             </div>
           </div>
-        </section>
-      </secttion>
+        </div>
+      </div>
     </>
   )
 }

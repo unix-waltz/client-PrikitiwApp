@@ -23,7 +23,6 @@ const App = () => {
           <Route  path="/dashboard/me/my-posts/:id" /> */}
           <Route  path="/dashboard/category/:category" />
           <Route  path="/dashboard/me/my-posts/:id" element={<DetailPost/>} />
-          <Route path="/dashboard/me" element={<Dashboard/>}/>
           <Route path="/dashboard/me/my-posts" element={<MyPosts/>}/>
           <Route path="/dashboard/me/new-post" element={<CreatePost/>}/>
     </Route>

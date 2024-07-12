@@ -20,10 +20,10 @@ if(isConfirm){
       <ul className="mt-6 space-y-1">
         <li>
           <Link
-            to="#"
+            to="/dashboard/me/my-posts"
             className="block rounded-lg  px-4 py-2 text-sm font-medium text-gray-700"
           >
-            General
+            Dashboard
           </Link>
         </li>
   
