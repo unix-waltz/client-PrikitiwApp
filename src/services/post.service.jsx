@@ -53,7 +53,16 @@ try {
     } catch (error) {
       return error.response?.data
     }
+  },
+deletePost:async({Api,postId,authorId}) =>{
+  console.log(postId,authorId)
+  try {
+    const send = await Api.post(`/post/delete`,{postId,authorId})
+    return send.data
+  } catch (error) {
+    return error.response?.data
   }
 }
-export const {create,getAllposts,getSinglepost,updatePost} = postservice
+}
+export const {create,getAllposts,getSinglepost,updatePost,deletePost} = postservice
 export default postservice

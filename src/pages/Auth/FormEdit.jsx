@@ -1,18 +1,24 @@
 import authservice from "../../services/auth.service"
-import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import "trix"
+import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
-import { updatePost } from "../../services/post.service"
+import { updatePost,deletePost } from "../../services/post.service"
 import { mixed, object, string } from "yup"
 import { useRef, useEffect, useState } from "react"
 
 const FormEdit = ({data}) => {
-  // console.log(data)
   const navigate = useNavigate()
-  const [open,setOpen] = useState(false)
   const Api = useAxiosPrivate()
   const { isUser } = authservice.isAuthenticate()
+  const HandleDelete = async()=>{
+    if(confirm('Are You Sure?')){
+const result = await deletePost({Api,postId:data.id,authorId:isUser.id})
+if(result.code == 200 || result.status == 'success') return navigate('/dashboard/me/my-posts/')
+}
+  }
+  // console.log(data)
+  const [open,setOpen] = useState(false)
   const trixEditorRef = useRef(null)
 
   const { handleChange, handleSubmit, setFieldValue, errors, values } = useFormik({
@@ -99,7 +105,7 @@ const FormEdit = ({data}) => {
       
       <div>
         <button
-          
+          onClick={HandleDelete}
           className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
           role="menuitem"
         >
