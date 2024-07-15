@@ -17,27 +17,15 @@ const Navbar = () => {
           <nav aria-label="Global">
             <ul className="flex items-center gap-6 text-sm">
               <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> About </Link>
-              </li>
-  
-              <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </Link>
-              </li>
-  
-              <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> History </Link>
-              </li>
-  
-              <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </Link>
-              </li>
-  
-              <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </Link>
+                <Link className="text-gray-500 transition hover:text-gray-500/75" to="/"> Home </Link>
               </li>
   
               <li>
                 <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> Blog </Link>
+              </li>
+  
+              <li>
+                <Link className="text-gray-500 transition hover:text-gray-500/75" to="/about"> About </Link>
               </li>
             </ul>
           </nav>

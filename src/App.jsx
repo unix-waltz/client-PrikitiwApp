@@ -11,6 +11,7 @@ import AuthRoute from "./routes/AuthRoute";
 import MyPosts from "./pages/Auth/MyPosts";
 import CreatePost from "./pages/Auth/CreatePost";
 import DetailPost from "./pages/Auth/DetailPost";
+import About from "./pages/Guest/About";
 const App = () => {
   return (
   <Provider store={store}>
@@ -33,6 +34,7 @@ const App = () => {
   </Route>
   {/* Public */}
            <Route path="/" element={<Index/>} />
+           <Route path="/about" element={<About/>} />
   </Route>
 </Routes>
 </BrowserRouter>
