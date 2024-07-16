@@ -1,8 +1,19 @@
 import UserLayout from "../../components/Partials/UserLayout"
 import { Link } from "react-router-dom"
+import { useState,useEffect } from "react"
 import authservice from "../../services/auth.service"
+import Card from "./../../components/Card"
+import guestService from "../../services/guest.service"
 const Index = () => {
+  const [posts,setPosts] = useState(null)
   const {isAuth,isUser} = authservice.isAuthenticate()
+  const HintAPI = async () => {
+const result = await guestService.Index()
+setPosts(result.data)
+  }
+  useEffect(()=>{
+    HintAPI()
+  },[])
   return (
    <>
    <UserLayout>
@@ -85,71 +96,17 @@ const Index = () => {
 </section>
 <br />
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-[90%] mx-auto">
-<Link className="group">
-  <img
-    alt=""
-    src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    className="h-56 w-full rounded-xl object-cover shadow-xl transition group-hover:grayscale-[50%]"
+{posts && posts.map(post => (
+  <Card
+    key={post.id} 
+    date={post.created_at}  
+    title={post.title}
+    body={post.body}
+    thumbnail={post.thumbnail}
+    category={post.category}
+    url={`/detail/post/${post.id}`}
   />
-
-  <div className="p-4">
-<span className="text-sm text-teal-500">17 juni 2006</span>
-      <h3 className="text-lg font-medium text-gray-900">Finding the Journey to Mordor</h3>
-
-    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis aspernatur mollitia cumque omnis, fugit fugiat veritatis facere, dolorem harum cupiditate itaque doloremque vitae dignissimos temporibus suscipit. Corrupti numquam repellendus velit.
-    </p>
-  </div>
-</Link>
-<Link className="group">
-  <img
-    alt=""
-    src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    className="h-56 w-full rounded-xl object-cover shadow-xl transition group-hover:grayscale-[50%]"
-  />
-
-  <div className="p-4">
-<span className="text-sm text-teal-500">17 juni 2006</span>
-      <h3 className="text-lg font-medium text-gray-900">Finding the Journey to Mordor</h3>
-
-    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis aspernatur mollitia cumque omnis, fugit fugiat veritatis facere, dolorem harum cupiditate itaque doloremque vitae dignissimos temporibus suscipit. Corrupti numquam repellendus velit.
-    </p>
-  </div>
-</Link>
-<Link className="group">
-  <img
-    alt=""
-    src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    className="h-56 w-full rounded-xl object-cover shadow-xl transition group-hover:grayscale-[50%]"
-  />
-
-  <div className="p-4">
-<span className="text-sm text-teal-500">17 juni 2006</span>
-      <h3 className="text-lg font-medium text-gray-900">Finding the Journey to Mordor</h3>
-
-    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis aspernatur mollitia cumque omnis, fugit fugiat veritatis facere, dolorem harum cupiditate itaque doloremque vitae dignissimos temporibus suscipit. Corrupti numquam repellendus velit.
-    </p>
-  </div>
-</Link>
-<Link className="group">
-  <img
-    alt=""
-    src="https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-    className="h-56 w-full rounded-xl object-cover shadow-xl transition group-hover:grayscale-[50%]"
-  />
-
-  <div className="p-4">
-<span className="text-sm text-teal-500">17 juni 2006</span>
-      <h3 className="text-lg font-medium text-gray-900">Finding the Journey to Mordor</h3>
-
-    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis aspernatur mollitia cumque omnis, fugit fugiat veritatis facere, dolorem harum cupiditate itaque doloremque vitae dignissimos temporibus suscipit. Corrupti numquam repellendus velit.
-    </p>
-  </div>
-</Link>
-
+))}
 </div>
 
    </UserLayout>
