@@ -191,7 +191,7 @@ if(result.code == 200 || result.status == 'success') return navigate('/dashboard
                       type="submit"
                       className="inline-block w-full rounded-lg bg-teal-500 l px-5 py-3 font-medium text-white sm:w-auto"
                     >
-                      Create Post
+                      Edit Post
                     </button>
                   </div>
                 </form>
