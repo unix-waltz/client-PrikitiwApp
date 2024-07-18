@@ -2,21 +2,14 @@ import AuthLayout from "../../components/Partials/AuthLayout"
 import { Link } from "react-router-dom"
 import { getAllposts } from "../../services/post.service"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
-import { useEffect } from "react"
-import { useState } from "react"
+import useReactQuery from "../../hooks/useReactQuery"
 import authservice from "../../services/auth.service"
 import Card from "./../../components/Card"
 const MyPosts = () => {
-  const [posts,setPosts] = useState([])
   const {isUser} = authservice.isAuthenticate()
   const Api = useAxiosPrivate()
-  const HintAPI = async ()=>{
-    const result = await getAllposts({Api,authorId:isUser.id})
-    setPosts(result)
-    }
-  useEffect(()=>{
-    HintAPI()
-  },[])
+const {data:posts,isLoading} = useReactQuery({query:()=>getAllposts({Api,authorId:isUser.id}),key:'myposts'})
+if(isLoading) return <div>Loading..</div>
   return (
     <AuthLayout>
 

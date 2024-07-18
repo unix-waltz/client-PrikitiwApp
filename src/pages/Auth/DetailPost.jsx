@@ -1,6 +1,7 @@
 import AuthLayout from "../../components/Partials/AuthLayout"
+import useReactQuery from "../../hooks/useReactQuery";
 import { VscPreview  } from "react-icons/vsc";
-import { useState,useEffect  } from "react";
+import { useState  } from "react";
 import {getSinglepost} from "../../services/post.service";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import FormEdit from "./FormEdit";
@@ -10,15 +11,8 @@ const DetailPost = () => {
     const { id } = useParams();
     const Api = useAxiosPrivate()
     const [activeTab, setActiveTab] = useState('show');
-    const [post,setPost] = useState([]);
-    const HintAPI = async() => {
-const result = await getSinglepost({Api,id})
-setPost(result)
-// console.log(result)
-    }
-    useEffect(()=>{
-HintAPI()
-    },[id])
+    const {data:post,isLoading} = useReactQuery({query:()=> getSinglepost({Api,id}),key:'detail-post'})
+    if(isLoading) return <div>Loading....</div>
     const renderTab = () => {
         switch (activeTab) {
             case 'setting':
