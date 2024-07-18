@@ -1,20 +1,14 @@
 import { useParams } from "react-router-dom"
-import { useEffect,useState } from "react"
 import Dompurify from "dompurify"
 import guestService from "../../services/guest.service"
+import useReactQuery from "../../hooks/useReactQuery"
 import UserLayout from "../../components/Partials/UserLayout"
 import {toDateFormat} from "./../../Utility/date.utils"
 const GuestDetailPost = () => {
-    const {id} = useParams()
-    const [post,setPost] = useState({})
-    const HintAPI = async () =>{
-        const {data} = await guestService.DetailPost(id)
-        setPost(data)
-    }
-    useEffect(()=> {
-        HintAPI()
-    },[])
-  return (
+  const {id} = useParams()
+const {data:post,isLoading} = useReactQuery({query: ()=>guestService.DetailPost(id),key:"detail-post"})
+if(isLoading) return <div>Loading</div> 
+ return (
     <UserLayout>
     <br />
     <br />

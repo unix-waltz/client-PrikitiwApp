@@ -1,19 +1,13 @@
 import UserLayout from "../../components/Partials/UserLayout"
 import { Link } from "react-router-dom"
-import { useState,useEffect } from "react"
+import useReactQuery from "../../hooks/useReactQuery"
 import authservice from "../../services/auth.service"
 import Card from "./../../components/Card"
 import guestService from "../../services/guest.service"
 const Index = () => {
-  const [posts,setPosts] = useState(null)
+const {data:posts,isLoading} = useReactQuery({query:guestService.Index,key:'index-post'})
   const {isAuth,isUser} = authservice.isAuthenticate()
-  const HintAPI = async () => {
-const result = await guestService.Index()
-setPosts(result.data)
-  }
-  useEffect(()=>{
-    HintAPI()
-  },[])
+if(isLoading) return <div>Loading....</div>
   return (
    <>
    <UserLayout>
