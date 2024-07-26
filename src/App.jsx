@@ -13,7 +13,8 @@ import CreatePost from "./pages/Auth/CreatePost";
 import DetailPost from "./pages/Auth/DetailPost";
 import GuestDetailPost from "./pages/Guest/GuestDetailPost";
 import About from "./pages/Guest/About";
-
+import Author from "./pages/Guest/Author";
+import Category from "./pages/Guest/Category";
 const App = () => {
   return (
   <Provider store={store}>
@@ -36,6 +37,8 @@ const App = () => {
   </Route>
   {/* Public */}
            <Route path="/" element={<Index/>} />
+           <Route path="/category/:category" element={(<Category/>)} />
+           <Route path="/author/:author" element={<Author/>} />
            <Route path="/news" element={<AllPost/>} />
            <Route path="/detail/post/:id" element={<GuestDetailPost/>} />
            <Route path="/about" element={<About/>} />

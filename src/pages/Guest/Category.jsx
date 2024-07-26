@@ -4,13 +4,15 @@ import useReactQuery from "../../hooks/useReactQuery";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const AllPost = () => {
+const Category = () => {
   const [posts, setPosts] = useState([]);
+  const {category} = useParams()
   const [paginate, setPaginate] = useState({ totalPages: 1, currentPage: 1 });
   const [currentPage, setCurrentPage] = useState(1);
   const { error, data, isError, isLoading } = useReactQuery({
-    query: () => guestService.All(currentPage),
+    query: () => guestService.ByCategory(currentPage,category),
     key: ['all-post', currentPage],
   });
 
@@ -30,7 +32,7 @@ const AllPost = () => {
   return (
     <UserLayout>
      <div className=" w-[90%] mx-auto">
-        <span className="ml-6 font-semibold text-2xl text-teal-600">All Posts</span>
+        <span className="ml-6 font-semibold text-2xl text-teal-600">Category : {category}</span>
         </div>
 <br />
      <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-[90%] mx-auto">
@@ -55,4 +57,4 @@ const AllPost = () => {
   )
 }
 
-export default AllPost
+export default Category

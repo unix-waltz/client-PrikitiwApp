@@ -21,7 +21,7 @@ const Navbar = () => {
               </li>
   
               <li>
-                <Link className="text-gray-500 transition hover:text-gray-500/75" to="/news"> News</Link>
+                <Link className="text-gray-500 transition hover:text-gray-500/75" to="/news"> News - Blogs</Link>
               </li>
   
               <li>

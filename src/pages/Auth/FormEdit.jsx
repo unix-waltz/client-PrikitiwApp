@@ -42,7 +42,6 @@ if(result.code == 200 || result.status == 'success') return navigate('/dashboard
     onSubmit:async (values) => {
       // alert(values.thumbnail)
       const result = await updatePost({values,Api})
-      console.log(result)
    if(result.status == 'success'|| result.code == 200) return window.location.reload()
     }
   })

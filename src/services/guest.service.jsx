@@ -16,9 +16,25 @@ DetailPost :async (id)=>{
         return error?.response?.data
     }
 },
-All:async () =>{
+All:async (page) =>{
     try {
-        const send = await instance.get(`/guest/all`) 
+        const send = await instance.get(`/guest/all?page=${page}`) 
+        return send.data
+     } catch (error) {
+         return error?.response?.data
+     }
+},
+ByAuthor : async (page,author) =>{
+    try {
+        const send = await instance.get(`/guest/author/${author}?page=${page}`) 
+        return send.data
+     } catch (error) {
+         return error?.response?.data
+     }
+},
+ByCategory: async (page,category) =>{
+    try {
+        const send = await instance.get(`/guest/category/${category}?page=${page}`) 
         return send.data
      } catch (error) {
          return error?.response?.data
