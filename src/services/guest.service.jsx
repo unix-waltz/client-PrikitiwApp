@@ -39,6 +39,14 @@ ByCategory: async (page,category) =>{
      } catch (error) {
          return error?.response?.data
      }
+},
+search: async (page,keyword) =>{
+    try {
+        const send = await instance.get(`/guest/search?keyword=${keyword}&page=${page}`) 
+        return send.data
+     } catch (error) {
+         return error?.response?.data
+     }
 }
 }
 export const {Index} = guestService

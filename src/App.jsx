@@ -15,6 +15,7 @@ import GuestDetailPost from "./pages/Guest/GuestDetailPost";
 import About from "./pages/Guest/About";
 import Author from "./pages/Guest/Author";
 import Category from "./pages/Guest/Category";
+import NotFound from "./pages/Error/Notfoundpage"
 const App = () => {
   return (
   <Provider store={store}>
@@ -40,9 +41,11 @@ const App = () => {
            <Route path="/category/:category" element={(<Category/>)} />
            <Route path="/author/:author" element={<Author/>} />
            <Route path="/news" element={<AllPost/>} />
+           <Route path="/news/search/:keyword" element={<AllPost/>} />
            <Route path="/detail/post/:id" element={<GuestDetailPost/>} />
            <Route path="/about" element={<About/>} />
   </Route>
+           <Route path="*" element={<NotFound />} />
 </Routes>
 </BrowserRouter>
   </Provider>
